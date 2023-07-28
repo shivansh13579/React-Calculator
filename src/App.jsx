@@ -5,11 +5,58 @@ import './App.css'
 function App() {
    const [input,setInput] = useState('00')
 
+   const calculateResult=(input)=>{
+        let result;
+
+        try{
+          const operators = ['+','-','*','/','%']
+          let operator = null;
+
+          for(let i=0; i<input.length; i++){
+            if(operators.includes(input[i])){
+              operator=input[i];
+              break;
+            }
+          }
+          const [operand1,operand2] = input.split
+          (operator).map(parseFloat);
+          let result;
+
+          switch(operator){
+            case '+':
+              result = operand1 + operand2;
+              break;
+              case '-':
+                result = operand1 - operand2;
+                break;
+                case '*':
+                  result = operand1 * operand2;
+                  break;
+                  case '/':
+                    result = operand1 / operand2;
+                    break;
+                    case '%':
+                      result = operand1 % operand2;
+                      break;
+                    default:
+                      throw new Error('invalid operator')
+          }
+
+          setInput(result.toString());
+
+        }
+        catch(error){
+          setInput('Error');
+        }
+   }
+
    const handleButtonClick=(value)=>{
     if(value==='C'){
       setInput('')
     }else if(value==='<'){
       setInput(input.slice(0,-1))
+    }else if(value === '='){
+      calculateResult(input)
     }
     else{
       setInput((preValue)=>preValue+value)
